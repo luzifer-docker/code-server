@@ -5,7 +5,10 @@ build_packages=()
 install_packages=(
 	curl
 	git
+	go
 	openssh
+	node
+	npm
 	sudo
 	tar
 )
