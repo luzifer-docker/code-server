@@ -7,7 +7,7 @@ install_packages=(
 	git
 	go
 	openssh
-	node
+	nodejs
 	npm
 	sudo
 	tar
