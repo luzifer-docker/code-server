@@ -6,6 +6,8 @@ install_packages=(
 	curl
 	git
 	go
+	just
+	make
 	openssh
 	nodejs
 	npm
