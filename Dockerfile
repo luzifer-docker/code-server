@@ -1,8 +1,8 @@
 FROM luzifer/archlinux
 
-ARG CODE_SERVER_VERSION=3.10.2
+ARG CODE_SERVER_VERSION=4.1.0
 ARG DUMB_INIT_VERSION=1.2.5
-ARG FIXUID_VERSION=0.5
+ARG FIXUID_VERSION=0.5.1
 
 COPY build.sh /usr/local/bin/build.sh
 RUN set -ex \
