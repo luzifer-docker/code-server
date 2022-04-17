@@ -10,7 +10,7 @@ git reset --hard origin/master
 ### ---- ###
 
 version=$(curl -s "https://lv.luzifer.io/v1/catalog/code-server/latest/version")
-grep -q "CODE_SERVER_VERSION=${version} " Dockerfile && exit 0 || echo "Update required"
+grep -q "CODE_SERVER_VERSION=${version}$" Dockerfile && exit 0 || echo "Update required"
 
 sed -Ei \
   -e "s/CODE_SERVER_VERSION=[0-9.]+/CODE_SERVER_VERSION=${version}/" \
