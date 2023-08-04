@@ -20,4 +20,4 @@ ENV USER=coder
 WORKDIR /home/coder
 
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
-CMD ["--auth", "none", "--bind-addr", "0.0.0.0:8080", "."]
+CMD ["--auth", "none", "--bind-addr", "0.0.0.0:8080", "--session-socket", "/tmp/code-server-ipc.sock", "."]
