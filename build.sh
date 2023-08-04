@@ -1,25 +1,20 @@
 #!/bin/bash
 set -euxo pipefail
 
-build_packages=()
+build_packages=(
+  tar
+)
 install_packages=(
-	curl
-	git
-	go
-	just
-	make
-	openssh
-	nodejs
-	npm
-	sudo
-	tar
+  curl
+  git
+  sudo
 )
 
 pacman -Sy --noconfirm "${build_packages[@]}" "${install_packages[@]}"
 
 # Install code-server release
 curl -sSfL "https://github.com/cdr/code-server/releases/download/v${CODE_SERVER_VERSION}/code-server-${CODE_SERVER_VERSION}-linux-amd64.tar.gz" |
-	tar -xz -C /opt
+  tar -xz -C /opt
 mv /opt/code-server-${CODE_SERVER_VERSION}-linux-amd64 /opt/code-server
 
 # Install dumb-init
@@ -28,7 +23,7 @@ chmod 0755 /usr/bin/dumb-init
 
 # Install and configure fixuid
 curl -sSfL "https://github.com/boxboat/fixuid/releases/download/v${FIXUID_VERSION}/fixuid-${FIXUID_VERSION}-linux-amd64.tar.gz" |
-	tar -xz -C /usr/local/bin
+  tar -xz -C /usr/local/bin
 chown root:root /usr/local/bin/fixuid
 chmod 4755 /usr/local/bin/fixuid
 
