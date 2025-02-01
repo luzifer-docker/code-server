@@ -21,9 +21,7 @@ mv /opt/code-server-${CODE_SERVER_VERSION}-linux-amd64 /opt/code-server
 curl -sSfLo /usr/bin/dumb-init "https://github.com/Yelp/dumb-init/releases/download/v${DUMB_INIT_VERSION}/dumb-init_${DUMB_INIT_VERSION}_x86_64"
 chmod 0755 /usr/bin/dumb-init
 
-# Install and configure fixuid
-curl -sSfL "https://github.com/boxboat/fixuid/releases/download/v${FIXUID_VERSION}/fixuid-${FIXUID_VERSION}-linux-amd64.tar.gz" |
-  tar -xz -C /usr/local/bin
+# Fix permissions for fixuid
 chown root:root /usr/local/bin/fixuid
 chmod 4755 /usr/local/bin/fixuid
 

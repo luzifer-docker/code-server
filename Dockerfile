@@ -1,8 +1,20 @@
+FROM luzifer/archlinux AS builder
+
+ENV GOPATH=/go \
+    CGO_ENABLED=0
+
+RUN set -ex \
+ && pacman -Sy --noconfirm \
+      go \
+ && go install github.com/boxboat/fixuid@v0.6.0
+
+
 FROM luzifer/archlinux
 
 ARG CODE_SERVER_VERSION=4.96.4
 ARG DUMB_INIT_VERSION=1.2.5
-ARG FIXUID_VERSION=0.5.1
+
+COPY --from=builder /go/bin/fixuid  /usr/local/bin/fixuid
 
 COPY build.sh /usr/local/bin/build.sh
 RUN set -ex \
