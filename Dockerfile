@@ -11,7 +11,7 @@ RUN set -ex \
 
 FROM luzifer/archlinux
 
-ARG CODE_SERVER_VERSION=4.100.2
+ARG CODE_SERVER_VERSION=4.100.3
 ARG DUMB_INIT_VERSION=1.2.5
 
 COPY --from=builder /go/bin/fixuid  /usr/local/bin/fixuid
