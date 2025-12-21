@@ -1,0 +1,41 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "customManagers": [
+    {
+      "customType": "regex",
+      "datasourceTemplate": "github-releases",
+      "managerFilePatterns": [
+        "/Dockerfile/"
+      ],
+      "matchStrings": [
+        "CODE_SERVER_VERSION=(?<currentValue>.*?)\\s"
+      ],
+      "packageNameTemplate": "coder/code-server"
+    },
+    {
+      "customType": "regex",
+      "datasourceTemplate": "github-releases",
+      "managerFilePatterns": [
+        "/Dockerfile/"
+      ],
+      "matchStrings": [
+        "github.com/boxboat/fixuid@v(?<currentValue>.*?)\\s"
+      ],
+      "packageNameTemplate": "boxboat/fixuid"
+    },
+    {
+      "customType": "regex",
+      "datasourceTemplate": "github-releases",
+      "managerFilePatterns": [
+        "/Dockerfile/"
+      ],
+      "matchStrings": [
+        "DUMB_INIT_VERSION=(?<currentValue>.*?)\\s"
+      ],
+      "packageNameTemplate": "Yelp/dumb-init"
+    }
+  ],
+  "extends": [
+    "local>luzifer/renovate-config"
+  ]
+}
