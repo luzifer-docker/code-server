@@ -1,4 +1,4 @@
-FROM ghcr.io/luzifer-docker/archlinux:latest@sha256:1d91d5e84fa694539b2b7ca5f188ab5832f7f1b6577a87986b22832c7910faa9 AS builder
+FROM ghcr.io/luzifer-docker/archlinux:latest@sha256:e9f761fa843b98ebcbe895bd1a71fef2fee74d936fb301150448f3048e1132fc AS builder
 
 ENV GOPATH=/go \
     CGO_ENABLED=0
@@ -9,7 +9,7 @@ RUN set -ex \
  && go install github.com/boxboat/fixuid@v0.6.0
 
 
-FROM ghcr.io/luzifer-docker/archlinux:latest@sha256:1d91d5e84fa694539b2b7ca5f188ab5832f7f1b6577a87986b22832c7910faa9
+FROM ghcr.io/luzifer-docker/archlinux:latest@sha256:e9f761fa843b98ebcbe895bd1a71fef2fee74d936fb301150448f3048e1132fc
 
 ARG CODE_SERVER_VERSION=4.108.1
 ARG DUMB_INIT_VERSION=1.2.5
