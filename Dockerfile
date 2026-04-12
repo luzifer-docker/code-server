@@ -11,7 +11,7 @@ RUN set -ex \
 
 FROM ghcr.io/luzifer-docker/archlinux:latest@sha256:4c8fa288d2f61587f98c2dbb6ec58c83b2efec61f4b03f7dec1f0e3772caadc3
 
-ARG CODE_SERVER_VERSION=4.114.1
+ARG CODE_SERVER_VERSION=4.115.0
 ARG DUMB_INIT_VERSION=1.2.5
 
 COPY --from=builder /go/bin/fixuid  /usr/local/bin/fixuid
