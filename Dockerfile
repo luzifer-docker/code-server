@@ -1,26 +1,63 @@
-FROM ghcr.io/luzifer-docker/archlinux:latest@sha256:30fc0d4947fbb330932ab26d493b6febc6fa16659423ad128c22b70c76246b29 AS builder
+FROM docker.io/library/golang:1.26.3 AS builder
 
 ENV GOPATH=/go \
     CGO_ENABLED=0
 
-RUN set -ex \
- && pacman -Sy --noconfirm \
-      go \
- && go install github.com/boxboat/fixuid@v0.6.0
-
-
-FROM ghcr.io/luzifer-docker/archlinux:latest@sha256:30fc0d4947fbb330932ab26d493b6febc6fa16659423ad128c22b70c76246b29
-
 ARG CODE_SERVER_VERSION=4.121.0
 ARG DUMB_INIT_VERSION=1.2.5
 
-COPY --from=builder /go/bin/fixuid  /usr/local/bin/fixuid
+SHELL ["/bin/bash", "-euxo", "pipefail", "-c"]
 
-COPY build.sh /usr/local/bin/build.sh
-RUN set -ex \
- && bash /usr/local/bin/build.sh
+RUN mkdir /rootfs/
 
-COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+# Install dumb-init into rootfs
+RUN <<-EOF
+  curl -sSfL "https://github.com/Yelp/dumb-init/releases/download/v${DUMB_INIT_VERSION}/dumb-init_${DUMB_INIT_VERSION}_x86_64" |
+    install -Dm0755 /dev/stdin /rootfs/usr/bin/dumb-init
+EOF
+
+# Install fixuid into rootfs
+RUN <<-EOF
+  go install github.com/boxboat/fixuid@v0.6.0
+  install -Dm4755 /go/bin/fixuid /rootfs/usr/local/bin/fixuid
+
+  echo -e "user: coder\ngroup: coder" |
+    install -Dm0644 /dev/stdin /rootfs/etc/fixuid/config.yml
+EOF
+
+# Install Code-Server Release
+RUN <<-EOF
+  install -dm0755 /rootfs/opt/code-server
+  curl -sSfL "https://github.com/cdr/code-server/releases/download/v${CODE_SERVER_VERSION}/code-server-${CODE_SERVER_VERSION}-linux-amd64.tar.gz" |
+    tar -xz -C /rootfs/opt/code-server --strip-components=1
+EOF
+
+COPY entrypoint.sh /rootfs/usr/local/bin/entrypoint.sh
+
+# ---
+
+FROM docker.io/library/debian:13.5-slim
+
+RUN <<-EOF
+  set -ex
+
+  # Install base packages
+  apt-get update
+  apt-get install --assume-yes --no-install-recommends \
+    ca-certificates \
+    curl \
+    git \
+    sudo
+  apt-get autoremove --assume-yes --purge
+  apt-get clean --assume-yes
+
+  # Configure user to use
+  useradd -m -u 1000 -U coder
+  echo "coder ALL=(ALL) NOPASSWD:ALL" |
+    install -Dm0640 /dev/stdin /etc/sudoers.d/nopasswd
+EOF
+
+COPY --from=builder /rootfs/ /
 
 EXPOSE 8080
 
