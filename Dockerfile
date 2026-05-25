@@ -52,7 +52,7 @@ RUN <<-EOF
   apt-get clean --assume-yes
 
   # Configure user to use
-  useradd -m -u 1000 -U coder
+  useradd -m -u 1000 -U coder -s /bin/bash
   echo "coder ALL=(ALL) NOPASSWD:ALL" |
     install -Dm0640 /dev/stdin /etc/sudoers.d/nopasswd
 EOF
