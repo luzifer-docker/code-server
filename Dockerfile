@@ -1,4 +1,4 @@
-FROM docker.io/library/golang:1.26.3 AS builder
+FROM docker.io/library/golang:1.26.3@sha256:2d6c80227255c3112a4d08e67ba98e58efd3846daf15d9d7d4c389565d881b1a AS builder
 
 ENV GOPATH=/go \
     CGO_ENABLED=0
@@ -36,7 +36,7 @@ COPY entrypoint.sh /rootfs/usr/local/bin/entrypoint.sh
 
 # ---
 
-FROM docker.io/library/debian:13.5-slim
+FROM docker.io/library/debian:13.5-slim@sha256:b6e2a152f22a40ff69d92cb397223c906017e1391a73c952b588e51af8883bf8
 
 RUN <<-EOF
   set -ex
