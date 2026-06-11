@@ -1,4 +1,4 @@
-FROM docker.io/library/golang:1.26.4@sha256:11fd8f7f63db3b6fb198797042ba4c40a4a34dc83325d3328ca3bc4bb7726786 AS builder
+FROM docker.io/library/golang:1.26.4@sha256:d184d9be4c13614e28498d632eeaaac704d662f18ad357e1df74a44424236cea AS builder
 
 ENV GOPATH=/go \
     CGO_ENABLED=0
