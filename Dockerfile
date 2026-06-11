@@ -36,7 +36,7 @@ COPY entrypoint.sh /rootfs/usr/local/bin/entrypoint.sh
 
 # ---
 
-FROM docker.io/library/debian:13.5-slim@sha256:545a1665d9364d3b00d1c892aa8fabc88d3c1f1d673eeeedfa3051010ebd91bb
+FROM docker.io/library/debian:13.5-slim@sha256:b6f94ac1729f1010ed1d01cde9e68a6a5bb19a51382883d5e3bf87fd832a5a85
 
 RUN <<-EOF
   set -ex
