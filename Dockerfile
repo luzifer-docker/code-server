@@ -3,7 +3,7 @@ FROM docker.io/library/golang:1.26.5@sha256:d52df9c279840adf958d017ebb275651ed83
 ENV GOPATH=/go \
     CGO_ENABLED=0
 
-ARG CODE_SERVER_VERSION=4.127.0
+ARG CODE_SERVER_VERSION=4.128.0
 ARG DUMB_INIT_VERSION=1.2.5
 
 SHELL ["/bin/bash", "-euxo", "pipefail", "-c"]
