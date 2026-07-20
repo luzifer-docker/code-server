@@ -1,0 +1,19 @@
+name: docker-publish
+
+on:
+  push: {}
+
+permissions:
+  contents: write
+  packages: write
+
+jobs:
+  docker-publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: luzifer/actions/docker-publish@develop
+        with:
+          image: ghcr.io/luzifer-docker/code-server
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
