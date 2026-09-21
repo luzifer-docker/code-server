@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: luzifer/actions/docker-publish@b94e3cd3b956105cbfa85d486921ca809b739af3 # develop
+      - uses: luzifer/actions/docker-publish@543959a4a97b64ad302d8bbcf07f46a3036e1e1d # develop
         with:
           image: ghcr.io/luzifer-docker/code-server
           username: ${{ github.actor }}
